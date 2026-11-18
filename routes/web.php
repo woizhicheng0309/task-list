@@ -54,27 +54,35 @@ $tasks = [
     ),
 ];
 
-Route::get('/', function () {
+Route::get('/', function () use($tasks) {
     return view('index', [
-        'name' => "Alex",
+        'tasks' => $tasks, // tasks is an array passed to index view, inside the array it contain Task object
     ]);
-});
+})->name('tasks.index');
 
-Route::get("/xxx", function () { # /xxx is a URL here
-    return "Hello";
-})->name('helloRoute'); # helloRoute is a route name here
+Route::get('/{id}',function($id) use($tasks){
+    // return 'One single task, id = ' . $id;
+    return view('show',[
+        'tasks' => $tasks,
+        'id' => $id,
+    ]);
+})->name('tasks.show');
 
-Route::get("/greet/{name}", function ($name) {
-    return "Hello " . $name . "!";
-});
+// Route::get("/xxx", function () { # /xxx is a URL here
+//     return "Hello";
+// })->name('helloRoute'); # helloRoute is a route name here
 
-Route::get("/frontdesk/{name}", function ($name) {
-    return "How can I help you " . $name . " ?";
-})->name('frontddesk');
+// Route::get("/greet/{name}", function ($name) {
+//     return "Hello " . $name . "!";
+// });
 
-Route::get("hallo", function () {
-    return redirect()->route('helloRoute');
-});
+// Route::get("/frontdesk/{name}", function ($name) {
+//     return "How can I help you " . $name . " ?";
+// })->name('frontddesk');
+
+// Route::get("hallo", function () {
+//     return redirect()->route('helloRoute');
+// });
 
 Route::fallback(function () { # all route that does not exist still go to fallback
     return "still got somewhere!";
