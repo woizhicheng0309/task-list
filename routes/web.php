@@ -65,13 +65,21 @@ Route::get('/task', function () use($tasks) {
     ]);
 })->name('tasks.index');
 
-Route::get('/task/{id}',function($id) use($tasks){
-    // return 'One single task, id = ' . $id;
+Route::get('/task/{id}', function($id) use($tasks){
+    $task = collect($tasks);
     return view('show',[
-        'tasks' => $tasks,
+        'task' => $task,
         'id' => $id,
     ]);
 })->name('tasks.show');
+
+// Route::get('/task/{id}',function($id) use($tasks){
+//     // return 'One single task, id = ' . $id;
+//     return view('show',[
+//         'tasks' => $tasks,
+//         'id' => $id,
+//     ]);
+// })->name('tasks.show');
 
 // Route::get("/xxx", function () { # /xxx is a URL here
 //     return "Hello";
