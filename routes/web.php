@@ -54,13 +54,18 @@ $tasks = [
     ),
 ];
 
-Route::get('/', function () use($tasks) {
+Route::get('/',function(){
+    // return redirect(route('tasks.index'));
+    return redirect()->route('tasks.index');
+})->name('root');
+
+Route::get('/task', function () use($tasks) {
     return view('index', [
-        'tasks' => $tasks, // tasks is an array passed to index view, inside the array it contain Task object
+        'tasks' => $tasks, // tasks is an array passed to index view, inside the array it contain Task object // item on left is the var passed to blade
     ]);
 })->name('tasks.index');
 
-Route::get('/{id}',function($id) use($tasks){
+Route::get('/task/{id}',function($id) use($tasks){
     // return 'One single task, id = ' . $id;
     return view('show',[
         'tasks' => $tasks,
